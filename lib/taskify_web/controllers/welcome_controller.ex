@@ -1,4 +1,4 @@
-defmodule TaskifyWeb.PageController do
+defmodule TaskifyWeb.WelcomeController do
   use TaskifyWeb, :controller
 
   def index(conn, _params) do
