@@ -29,3 +29,53 @@ Suggestion: use [asdf](https://asdf-vm.com/guide/getting-started.html) with [eli
 * Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ![Task 001](./priv/static/images/screenshots/task_001_welcome_to_phoenix.png)
+
+### Task 002 - Building our landing page
+
+The initial version of the new page will be available on:
+<http://localhost:4000/welcome>
+
+* Add new route: `/welcome`
+* Add new controller: `WelcomeController`
+* Add new view: `WelcomeView`
+* Add new template: `welcome/index.html.heex`
+* Updating `layout/root.html.heex`: Replacing logo image and link on the header page
+* Updating page title
+
+Now let's make our new landing page available on: <http://localhost:4000/>
+
+* Set WelcomeControler#index as the root path
+
+And finally, cleaning up dead code and warnings
+
+* Remove dead code
+* Fix gettext warning
+
+![Task 002](priv/static/images/screenshots/task_002_build_landing_page_root_path.png)
+
+## Troubleshooting
+
+Compilation errors? Try to run:
+
+```bash
+mix deps.get --clean
+```
+
+Still having issues? Delete the `_build` folder to force the compilation
+
+```bash
+rm -rf _build
+```
+
+And then, run the server again:
+
+```
+mix deps.get
+mix phx.server
+```
+
+Don't forgot to run the tests!
+
+```bash
+mix test
+```
