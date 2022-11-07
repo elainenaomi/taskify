@@ -12,7 +12,7 @@ defmodule TaskifyWeb.UserSessionControllerTest do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
       assert response =~ "<h1>Log in</h1>"
-      assert response =~ "Register</a>"
+      assert response =~ "Sign Up</a>"
       assert response =~ "Forgot your password?</a>"
     end
 

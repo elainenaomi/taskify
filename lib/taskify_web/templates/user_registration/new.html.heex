@@ -1,4 +1,4 @@
-<h1>Register</h1>
+<h1>Sign Up</h1>
 
 <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
   <%= if @changeset.action do %>
@@ -16,7 +16,7 @@
   <%= error_tag f, :password %>
 
   <div>
-    <%= submit "Register" %>
+    <%= submit "Sign Up" %>
   </div>
 </.form>
 

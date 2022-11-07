@@ -2,4 +2,8 @@
   <h1>Welcome to Taskify!</h1>
   <p>The best solution to start a new project is break it down into small parts!</p>
   <p>What about starting learning Phoenix and Elixir while creating an app to track your progress?</p>
+
+  <%= unless @current_user do %>
+    <p><%= link "Sign Up", to: Routes.user_registration_path(@conn, :new) %></p>
+  <% end %>
 </section>
