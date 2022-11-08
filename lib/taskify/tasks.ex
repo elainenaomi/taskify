@@ -25,7 +25,11 @@ defmodule Taskify.Tasks do
   end
 
   defp user_tasks_query(query, %Accounts.User{id: user_id}) do
-    from(v in query, where: v.user_id == ^user_id, preload: [:user])
+    from(t in query,
+      left_join: s in assoc(t, :sub_tasks),
+      where: t.user_id == ^user_id,
+      preload: [:user, sub_tasks: s]
+    )
   end
 
   @doc """

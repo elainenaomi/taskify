@@ -5,7 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-
+      <th>Completed/ Total</th>
       <th></th>
     </tr>
   </thead>
@@ -14,7 +14,7 @@
     <tr>
       <td><%= task.name %></td>
       <td><%= task.description %></td>
-
+      <td><%= sub_tasks_status(task) %></td>
       <td>
         <span><%= link "Show", to: Routes.task_path(@conn, :show, task) %></span>
         <span><%= link "Edit", to: Routes.task_path(@conn, :edit, task) %></span>
