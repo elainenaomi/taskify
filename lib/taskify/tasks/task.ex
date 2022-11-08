@@ -2,10 +2,12 @@ defmodule Taskify.Tasks.Task do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Taskify.Accounts.User
+
   schema "tasks" do
     field :description, :string
     field :name, :string
-    field :user_id, :id
+    belongs_to :user, User
 
     timestamps()
   end

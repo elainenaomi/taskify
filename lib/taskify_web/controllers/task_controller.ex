@@ -4,18 +4,23 @@ defmodule TaskifyWeb.TaskController do
   alias Taskify.Tasks
   alias Taskify.Tasks.Task
 
-  def index(conn, _params) do
+  def action(conn, _) do
+    args = [conn, conn.params, conn.assigns.current_user]
+    apply(__MODULE__, action_name(conn), args)
+  end
+
+  def index(conn, _params, current_user) do
     tasks = Tasks.list_tasks()
     render(conn, "index.html", tasks: tasks)
   end
 
-  def new(conn, _params) do
+  def new(conn, _params, _current_user) do
     changeset = Tasks.change_task(%Task{})
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"task" => task_params}) do
-    case Tasks.create_task(task_params) do
+  def create(conn, %{"task" => task_params}, current_user) do
+    case Tasks.create_task(current_user, task_params) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
@@ -26,18 +31,18 @@ defmodule TaskifyWeb.TaskController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}, current_user) do
     task = Tasks.get_task!(id)
     render(conn, "show.html", task: task)
   end
 
-  def edit(conn, %{"id" => id}) do
+  def edit(conn, %{"id" => id}, current_user) do
     task = Tasks.get_task!(id)
     changeset = Tasks.change_task(task)
     render(conn, "edit.html", task: task, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "task" => task_params}) do
+  def update(conn, %{"id" => id, "task" => task_params}, current_user) do
     task = Tasks.get_task!(id)
 
     case Tasks.update_task(task, task_params) do
@@ -51,7 +56,7 @@ defmodule TaskifyWeb.TaskController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => id}, current_user) do
     task = Tasks.get_task!(id)
     {:ok, _task} = Tasks.delete_task(task)
 

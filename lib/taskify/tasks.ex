@@ -4,6 +4,7 @@ defmodule Taskify.Tasks do
   """
 
   import Ecto.Query, warn: false
+  alias Taskify.Accounts
   alias Taskify.Repo
 
   alias Taskify.Tasks.Task
@@ -42,16 +43,17 @@ defmodule Taskify.Tasks do
 
   ## Examples
 
-      iex> create_task(%{field: value})
+      iex> create_task(user, %{field: value})
       {:ok, %Task{}}
 
-      iex> create_task(%{field: bad_value})
+      iex> create_task(user, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_task(attrs \\ %{}) do
+  def create_task(%Accounts.User{} = user, attrs \\ %{}) do
     %Task{}
     |> Task.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
     |> Repo.insert()
   end
 
