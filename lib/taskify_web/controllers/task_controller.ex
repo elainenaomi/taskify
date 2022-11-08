@@ -10,7 +10,7 @@ defmodule TaskifyWeb.TaskController do
   end
 
   def index(conn, _params, current_user) do
-    tasks = Tasks.list_tasks()
+    tasks = Tasks.list_user_tasks(current_user)
     render(conn, "index.html", tasks: tasks)
   end
 
@@ -32,18 +32,18 @@ defmodule TaskifyWeb.TaskController do
   end
 
   def show(conn, %{"id" => id}, current_user) do
-    task = Tasks.get_task!(id)
+    task = Tasks.get_user_task!(current_user, id)
     render(conn, "show.html", task: task)
   end
 
   def edit(conn, %{"id" => id}, current_user) do
-    task = Tasks.get_task!(id)
+    task = Tasks.get_user_task!(current_user, id)
     changeset = Tasks.change_task(task)
     render(conn, "edit.html", task: task, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "task" => task_params}, current_user) do
-    task = Tasks.get_task!(id)
+    task = Tasks.get_user_task!(current_user, id)
 
     case Tasks.update_task(task, task_params) do
       {:ok, task} ->
@@ -57,7 +57,7 @@ defmodule TaskifyWeb.TaskController do
   end
 
   def delete(conn, %{"id" => id}, current_user) do
-    task = Tasks.get_task!(id)
+    task = Tasks.get_user_task!(current_user, id)
     {:ok, _task} = Tasks.delete_task(task)
 
     conn

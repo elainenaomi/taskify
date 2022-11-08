@@ -14,29 +14,39 @@ defmodule Taskify.Tasks do
 
   ## Examples
 
-      iex> list_tasks()
+      iex> list_user_tasks(user)
       [%Task{}, ...]
 
   """
-  def list_tasks do
-    Repo.all(Task)
+  def list_user_tasks(user) do
+    Task
+    |> user_tasks_query(user)
+    |> Repo.all()
+  end
+
+  defp user_tasks_query(query, %Accounts.User{id: user_id}) do
+    from(v in query, where: v.user_id == ^user_id, preload: [:user])
   end
 
   @doc """
-  Gets a single task.
+  Gets a single task from a given user
 
   Raises `Ecto.NoResultsError` if the Task does not exist.
 
   ## Examples
 
-      iex> get_task!(123)
+      iex> get_user_task!(user, 123)
       %Task{}
 
-      iex> get_task!(456)
+      iex> get_user_task!(user, 456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_user_task!(user, id) do
+    Task
+    |> user_tasks_query(user)
+    |> Repo.get!(id)
+  end
 
   @doc """
   Creates a task.

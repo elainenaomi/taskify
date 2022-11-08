@@ -3,6 +3,8 @@ defmodule TaskifyWeb.TaskControllerTest do
 
   import Taskify.TasksFixtures
 
+  setup :register_and_log_in_user
+
   @create_attrs %{description: "some description", name: "some name"}
   @update_attrs %{description: "some updated description", name: "some updated name"}
   @invalid_attrs %{description: nil, name: nil}
@@ -77,8 +79,8 @@ defmodule TaskifyWeb.TaskControllerTest do
     end
   end
 
-  defp create_task(_) do
-    task = task_fixture()
+  defp create_task(%{user: user}) do
+    task = task_fixture(user)
     %{task: task}
   end
 end

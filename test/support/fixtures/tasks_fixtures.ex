@@ -7,14 +7,14 @@ defmodule Taskify.TasksFixtures do
   @doc """
   Generate a task.
   """
-  def task_fixture(attrs \\ %{}) do
-    {:ok, task} =
-      attrs
-      |> Enum.into(%{
+  def task_fixture(user, attrs \\ %{}) do
+    task_attrs =
+      Enum.into(attrs, %{
         description: "some description",
         name: "some name"
       })
-      |> Taskify.Tasks.create_task()
+
+    {:ok, task} = Taskify.Tasks.create_task(user, task_attrs)
 
     task
   end
