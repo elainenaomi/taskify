@@ -7,15 +7,17 @@ defmodule Taskify.SubTasksFixtures do
   @doc """
   Generate a sub_task.
   """
-  def sub_task_fixture(attrs \\ %{}) do
-    {:ok, sub_task} =
-      attrs
-      |> Enum.into(%{
+  def sub_task_fixture(user, task_id, attrs \\ %{}) do
+    task = Taskify.TasksFixtures.task_fixture(user)
+
+    attrs =
+      Enum.into(attrs, %{
         completed: true,
         description: "some description",
         name: "some name"
       })
-      |> Taskify.SubTasks.create_sub_task()
+
+    {:ok, sub_task} = Taskify.SubTasks.create_sub_task(task, attrs)
 
     sub_task
   end

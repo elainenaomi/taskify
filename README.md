@@ -341,6 +341,29 @@ About how to get the current_user in the controller actions:
 * <https://remote.com/blog/current-user-in-elixir-phoenix>
 * <https://pragprog.com/titles/phoenix14/programming-phoenix-1-4/>
 
+### Task 005 - Creating sub-tasks for a task
+
+* Run generator
+
+```
+  mix phx.gen.html SubTasks SubTask sub_tasks name:string description:text completed:boolean task_id:references:tasks
+```
+
+* Route + Ensure authentication
+
+```
+  resources "/tasks", TaskController do
+    resources "/sub_tasks", SubTaskController
+  end
+```
+
+* Adjusting migration and database schema
+
+* Replacing `sub_task_path` with `task_sub_task_path`. It is still broken as we need to pass a 3rd argument for nested paths
+
+* Go to a path such as <http://localhost:4000/tasks/3/sub_tasks>
+`
+
 ## Troubleshooting
 
 Compilation errors? Try to run:
