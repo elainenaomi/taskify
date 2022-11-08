@@ -19,7 +19,7 @@ defmodule TaskifyWeb.SubTaskController do
       {:ok, sub_task} ->
         conn
         |> put_flash(:info, "Sub task created successfully.")
-        |> redirect(to: Routes.sub_task_path(conn, :show, sub_task))
+        |> redirect(to: Routes.task_sub_task_path(conn, :show, sub_task))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -44,7 +44,7 @@ defmodule TaskifyWeb.SubTaskController do
       {:ok, sub_task} ->
         conn
         |> put_flash(:info, "Sub task updated successfully.")
-        |> redirect(to: Routes.sub_task_path(conn, :show, sub_task))
+        |> redirect(to: Routes.task_sub_task_path(conn, :show, sub_task))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", sub_task: sub_task, changeset: changeset)
@@ -57,6 +57,6 @@ defmodule TaskifyWeb.SubTaskController do
 
     conn
     |> put_flash(:info, "Sub task deleted successfully.")
-    |> redirect(to: Routes.sub_task_path(conn, :index))
+    |> redirect(to: Routes.task_sub_task_path(conn, :index))
   end
 end

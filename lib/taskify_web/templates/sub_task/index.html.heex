@@ -18,13 +18,13 @@
       <td><%= sub_task.completed %></td>
 
       <td>
-        <span><%= link "Show", to: Routes.sub_task_path(@conn, :show, sub_task) %></span>
-        <span><%= link "Edit", to: Routes.sub_task_path(@conn, :edit, sub_task) %></span>
-        <span><%= link "Delete", to: Routes.sub_task_path(@conn, :delete, sub_task), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Show", to: Routes.task_sub_task_path(@conn, :show, sub_task) %></span>
+        <span><%= link "Edit", to: Routes.task_sub_task_path(@conn, :edit, sub_task) %></span>
+        <span><%= link "Delete", to: Routes.task_sub_task_path(@conn, :delete, sub_task), method: :delete, data: [confirm: "Are you sure?"] %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Sub task", to: Routes.sub_task_path(@conn, :new) %></span>
+<span><%= link "New Sub task", to: Routes.task_sub_task_path(@conn, :new) %></span>
