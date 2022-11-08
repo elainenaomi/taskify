@@ -3,11 +3,14 @@ defmodule Taskify.Tasks.Task do
   import Ecto.Changeset
 
   alias Taskify.Accounts.User
+  alias Taskify.SubTasks.SubTask
 
   schema "tasks" do
     field :description, :string
     field :name, :string
     belongs_to :user, User
+
+    has_many :sub_tasks, SubTask
 
     timestamps()
   end

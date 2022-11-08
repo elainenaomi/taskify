@@ -3,10 +3,10 @@ defmodule Taskify.Repo.Migrations.CreateSubTasks do
 
   def change do
     create table(:sub_tasks) do
-      add :name, :string
+      add :name, :string, null: false
       add :description, :text
       add :completed, :boolean, default: false, null: false
-      add :task_id, references(:tasks, on_delete: :nothing)
+      add :task_id, references(:tasks, on_delete: :delete_all), null: false
 
       timestamps()
     end
