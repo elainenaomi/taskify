@@ -21,6 +21,11 @@ defmodule TaskifyWeb.Router do
     pipe_through :browser
 
     get "/", WelcomeController, :index
+  end
+
+  scope "/", TaskifyWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
     resources "/tasks", TaskController
   end
 
