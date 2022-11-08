@@ -19,5 +19,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.task_sub_task_path(@conn, :edit, @sub_task) %></span> |
-<span><%= link "Back", to: Routes.task_sub_task_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.task_sub_task_path(@conn, :edit, @sub_task, @task_id) %></span> |
+<span><%= link "Back", to: Routes.task_sub_task_path(@conn, :index, @task_id) %></span>

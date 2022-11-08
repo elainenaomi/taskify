@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.task_sub_task_path(@conn, :update, @sub_task)) %>
 
-<span><%= link "Back", to: Routes.task_sub_task_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.task_sub_task_path(@conn, :index, @task_id) %></span>
