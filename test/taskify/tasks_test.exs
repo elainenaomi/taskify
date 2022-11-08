@@ -30,6 +30,14 @@ defmodule Taskify.TasksTest do
       assert task.name == "some name"
     end
 
+    test "create_task/2 with valid required data creates a task", %{user: user} do
+      valid_attrs = %{description: nil, name: "some name"}
+
+      assert {:ok, %Task{} = task} = Tasks.create_task(user, valid_attrs)
+      assert task.description == nil
+      assert task.name == "some name"
+    end
+
     test "create_task/2 with invalid data returns error changeset", %{user: user} do
       assert {:error, %Ecto.Changeset{}} = Tasks.create_task(user, @invalid_attrs)
     end

@@ -16,6 +16,6 @@ defmodule Taskify.Tasks.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
+    |> validate_required([:name])
   end
 end
