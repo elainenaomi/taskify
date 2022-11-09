@@ -53,17 +53,110 @@ And finally, cleaning up dead code and warnings
 
 ![Task 002](priv/static/images/screenshots/task_002_build_landing_page_root_path.png)
 
+### Task 003 - Adding an Authentication System
+
+The [`mix phx.gen.auth`](https://hexdocs.pm/phoenix/mix_phx_gen_auth.html) command generates a flexible, pre-built authentication system into your Phoenix app.
+
+To add it to your system, you can run the following command:
+
+```bash
+mix phx.gen.auth Accounts User users
+```
+
+In which:
+
+* `Accounts` is the Phoenix context to wrap the `User` Module
+* `User` is the Elixir module that will contain the Ecto schema for `users` table schema and other validations
+* `users` is the name of database table to be created
+
+It will generate a lot of files, including tests.
+Continue to follow the instructions from the terminal.
+
+Run he following command to re-fetch your dependencies:
+
+```bash
+mix deps.get
+```
+
+This command will fetch the new elixir dependency, added by the `mix phx.gen.auth` command. You will see a change on the `mix.lock` file.
+
+Run the migrations, created for the authentication system:
+
+```bash
+mix ecto.migrate
+```
+
+Now your local database (`taskify_dev`) will have two new tables: `users` and `users_tokens`
+
+```
+19:08:39.931 [info] == Running 20221107215733 Taskify.Repo.Migrations.CreateUsersAuthTables.change/0 forward
+
+19:08:39.934 [info] execute "CREATE EXTENSION IF NOT EXISTS citext"
+
+19:08:39.983 [info] create table users
+
+19:08:39.990 [info] create index users_email_index
+
+19:08:39.991 [info] create table users_tokens
+
+19:08:39.997 [info] create index users_tokens_user_id_index
+
+19:08:39.998 [info] create index users_tokens_context_token_index
+
+19:08:40.000 [info] == Migrated 20221107215733 in 0.0s
+```
+
+You can access the database with:
+
+```
+psql -d taskify_dev
+```
+
+Run `\dt` to see all tables in your database.
+
+Now you have an authenticated system for your app 🎉
+
+![Auth](./priv/static/images/screenshots/task-003-add-authentication-system.gif)
+
+You can access the mailbox for development environment in: <http://localhost:4000/dev/mailbox>
+
+![Task 003 - Auth](priv/static/images/screenshots/task-003-dev-mailbox.png)
+
+Now your app knows when a user is logged or not!
+Let's update our landing page to make the `Sign Up` flow more visible!
+
+Update landing page to show `Sign Up` link along with the Welcome message.
+Show the Sign Up message only for anonymous with assigns!
+
+```elixir
+<%= unless @current_user do %>
+  <p><%= link "Sign Up", to: Routes.user_registration_path(@conn, :new) %></p>
+<% end %>
+```
+
+More about `HEEx` (HTML + EEx) - Phoenix template language:
+<https://hexdocs.pm/phoenix_live_view/assigns-eex.html>
+
+![Task 003 - Sign Up CTA](priv/static/images/screenshots/task-003-updated-landing-page.gif)
+
+Additional links about authentication, including sending emails:
+
+* <https://www.literatelabs.com/p/how-to-get-verification-emails-for>
+* <https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-1/>
+* <https://experimentingwithcode.com/phoenix-authentication-with-phx-gen-auth-part-2/>
+* <https://github.com/thoughtbot/bamboo>
+
 ## Troubleshooting
 
 Compilation errors? Try to run:
 
-```bash
+```
 mix deps.get --clean
 ```
 
 Still having issues? Delete the `_build` folder to force the compilation
 
-```bash
+```
 rm -rf _build
 ```
 
@@ -74,8 +167,15 @@ mix deps.get
 mix phx.server
 ```
 
-Don't forgot to run the tests!
+Would you like to run your test suite?
 
-```bash
+```
+mix test
+```
+
+Having issues with database used for test?
+
+```
+MIX_ENV=test mix ecto.reset
 mix test
 ```
