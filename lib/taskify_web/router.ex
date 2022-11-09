@@ -23,6 +23,12 @@ defmodule TaskifyWeb.Router do
     get "/", WelcomeController, :index
   end
 
+  scope "/", TaskifyWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    resources "/tasks", TaskController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TaskifyWeb do
   #   pipe_through :api
