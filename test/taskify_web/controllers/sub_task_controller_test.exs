@@ -96,7 +96,7 @@ defmodule TaskifyWeb.SubTaskControllerTest do
 
   defp create_sub_task(%{user: user}) do
     task = Taskify.TasksFixtures.task_fixture(user)
-    sub_task = sub_task_fixture(user, task_id)
+    sub_task = sub_task_fixture(task, user)
     %{sub_task: sub_task, task: task}
   end
 end

@@ -40,10 +40,10 @@ defmodule Taskify.SubTasks do
 
   ## Examples
 
-      iex> get_user_sub_task!(123)
+      iex> get_user_sub_task!(123, user, task_id)
       %SubTask{}
 
-      iex> get_user_sub_task!(456)
+      iex> get_user_sub_task!(456, user, task_id)
       ** (Ecto.NoResultsError)
 
   """
