@@ -11,6 +11,6 @@ defmodule TaskifyWeb.SubTaskController do
   def index(conn, %{"task_id" => task_id}, current_user) do
     task = Tasks.get_user_task!(current_user, task_id)
     sub_tasks = SubTasks.list_sub_tasks(task)
-    render(conn, "index.html", sub_tasks: sub_tasks)
+    render(conn, "index.html", sub_tasks: sub_tasks, task: task)
   end
 end
