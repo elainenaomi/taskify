@@ -1,0 +1,23 @@
+<h1>Show Sub task</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @sub_task.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @sub_task.description %>
+  </li>
+
+  <li>
+    <strong>Completed:</strong>
+    <%= @sub_task.completed %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.task_sub_task_path(@conn, :edit, @task, @sub_task) %></span> |
+<span><%= link "Back", to: Routes.task_sub_task_path(@conn, :index, @task) %></span>
