@@ -17,6 +17,6 @@ defmodule Taskify.SubTasks.SubTask do
   def changeset(sub_task, attrs) do
     sub_task
     |> cast(attrs, [:name, :description, :completed])
-    |> validate_required([:name, :description, :completed])
+    |> validate_required([:name, :completed])
   end
 end

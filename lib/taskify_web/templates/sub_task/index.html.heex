@@ -27,4 +27,5 @@
   </tbody>
 </table>
 
-<span><%= link "New Sub task", to: Routes.task_sub_task_path(@conn, :new, @task) %></span>
+<span><%= link "New Sub task", to: Routes.task_sub_task_path(@conn, :new, @task) %></span> |
+<span><%= link "Task", to: Routes.task_path(@conn, :show, @task) %></span>
