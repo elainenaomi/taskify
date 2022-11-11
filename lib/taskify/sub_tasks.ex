@@ -7,6 +7,7 @@ defmodule Taskify.SubTasks do
   alias Taskify.Repo
 
   alias Taskify.SubTasks.SubTask
+  alias Taskify.Tasks.Task
 
   @doc """
   Returns the list of sub_tasks.
@@ -17,8 +18,14 @@ defmodule Taskify.SubTasks do
       [%SubTask{}, ...]
 
   """
-  def list_sub_tasks do
-    Repo.all(SubTask)
+  def list_sub_tasks(task) do
+    SubTask
+    |> task_sub_tasks_query(task)
+    |> Repo.all()
+  end
+
+  defp task_sub_tasks_query(query, %Task{id: task_id}) do
+    from(t in query, where: t.task_id == ^task_id, preload: [task: :user])
   end
 
   @doc """
@@ -35,23 +42,28 @@ defmodule Taskify.SubTasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_sub_task!(id), do: Repo.get!(SubTask, id)
+  def get_sub_task!(task, id) do
+    SubTask
+    |> task_sub_tasks_query(task)
+    |> Repo.get!(id)
+  end
 
   @doc """
   Creates a sub_task.
 
   ## Examples
 
-      iex> create_sub_task(%{field: value})
+      iex> create_sub_task(task, %{field: value})
       {:ok, %SubTask{}}
 
-      iex> create_sub_task(%{field: bad_value})
+      iex> create_sub_task(task, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_sub_task(attrs \\ %{}) do
+  def create_sub_task(task, attrs \\ %{}) do
     %SubTask{}
     |> SubTask.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:task, task)
     |> Repo.insert()
   end
 
