@@ -1,5 +1,5 @@
 <h1>New Sub task</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.sub_task_path(@conn, :create)) %>
+<%= render "form.html", Map.put(assigns, :action, Routes.task_sub_task_path(@conn, :create, @task)) %>
 
-<span><%= link "Back", to: Routes.sub_task_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.task_sub_task_path(@conn, :index, @task) %></span>
