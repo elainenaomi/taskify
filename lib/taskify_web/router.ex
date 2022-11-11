@@ -26,7 +26,9 @@ defmodule TaskifyWeb.Router do
   scope "/", TaskifyWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    resources "/tasks", TaskController
+    resources "/tasks", TaskController do
+      resources "/sub_tasks", SubTaskController
+    end
   end
 
   # Other scopes may use custom stacks.
