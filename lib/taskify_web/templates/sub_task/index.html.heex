@@ -1,0 +1,26 @@
+<h1>Listing Sub-Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Completed</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for sub_task <- @sub_tasks do %>
+    <tr>
+      <td><%= sub_task.name %></td>
+      <td><%= sub_task.description %></td>
+      <td><%= sub_task.completed %></td>
+
+      <td>
+
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
