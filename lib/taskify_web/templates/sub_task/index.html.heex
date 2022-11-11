@@ -1,4 +1,4 @@
-<h1>Listing Sub-Tasks</h1>
+<h1>Listing Sub tasks</h1>
 
 <table>
   <thead>
@@ -18,9 +18,13 @@
       <td><%= sub_task.completed %></td>
 
       <td>
-
+        <span><%= link "Show", to: Routes.sub_task_path(@conn, :show, sub_task) %></span>
+        <span><%= link "Edit", to: Routes.sub_task_path(@conn, :edit, sub_task) %></span>
+        <span><%= link "Delete", to: Routes.sub_task_path(@conn, :delete, sub_task), method: :delete, data: [confirm: "Are you sure?"] %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
+
+<span><%= link "New Sub task", to: Routes.sub_task_path(@conn, :new) %></span>
